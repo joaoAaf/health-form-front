@@ -1,70 +1,61 @@
-          const registerForm = document.getElementById('registerForm');
+const registerUrl = "http://localhost:8765/user/register"
+const registerForm = document.getElementById('registerForm');
 
-          registerForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent default form submission
+registerForm.addEventListener('submit', function (event) {
+  event.preventDefault();
 
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const confirmPassword = document.getElementById('confirm_password').value.trim();
-            const terms = document.getElementById('terms').checked;
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirm_password').value;
 
-            // Clear previous errors
-            const errorMessages = document.querySelectorAll('.text-danger');
-            errorMessages.forEach(message => message.remove());
+  // Clear previous errors
+  const errorMessages = document.querySelectorAll('.text-danger');
+  errorMessages.forEach(message => message.remove());
 
-            // Validate form inputs
-            let isValid = true; // Flag to track overall form validity
+  if (password !== confirmPassword) {
+    showError('confirm_password', 'As senhas não conferem!');
+    return;
+  }
+  
+  register(name, email, password)
 
-            if (!name) {
-              registerForm.classList.add('was-validated'); // Trigger Bootstrap validation styles
-              showError('name', 'Please enter your full name.');
-              isValid = false;
-            }
+});
 
-            if (!email || !validateEmail(email)) {
-              registerForm.classList.add('was-validated');
-              showError('email', 'Please enter a valid email address.');
-              isValid = false;
-            }
+async function register(name, email, password) {
+  
+  const registerData = {
+    "name": name,
+    "email": email,
+    "pass": password
+  };
 
-            if (!password) {
-              registerForm.classList.add('was-validated');
-              showError('password', 'Please enter a password.');
-              isValid = false;
-            }
+  try {
+    const response = await fetch(registerUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(registerData),
+    });
 
-            if (!confirmPassword || password !== confirmPassword) {
-              registerForm.classList.add('was-validated');
-              showError('confirm_password', 'Passwords do not match.');
-              isValid = false;
-            }
+    const responseJson = await response.json();
 
-            if (!terms) {
-              registerForm.classList.add('was-validated');
-              showError('terms', 'You must agree to the terms and conditions.');
-              isValid = false;
-            }
+    if (!response.ok) {
+      throw new Error(`Falha ao realizar o cadastro: ${responseJson.msg}`);
+    }
 
-            if (!isValid) {
-              return; // Prevent form submission if validation fails
-            }
+    console.log(responseJson.data);
+    alert("Cadastro realizado com sucesso!");
 
-            // Submit the form or handle registration logic here
-            // (e.g., send an API request to your backend)
-            console.log('Registration data:', { name, email, password });
-            // Replace with your actual registration logic (API call, etc.)
-          });
+  } catch (error) {
+    console.error(error);
+    alert(error);
+  }
+}
 
-          function showError(field, message) {
-            const fieldElement = document.getElementById(field);
-            const errorMessage = document.createElement('div');
-            errorMessage.classList.add('text-danger', 'mt-2');
-            errorMessage.textContent = message;
-            fieldElement.parentElement.insertBefore(errorMessage, fieldElement.nextSibling);
-          }
-
-          function validateEmail(email) {
-            const re = /^(([^<>()\[\]\\.,;:\s@"]+)(\.[^<>()\[\]\\.,;:\s@"]+)*)@(([^<>()\[\]\\.,;:\s@"]+)(\.[^<>()\[\]\\.,;:\s@"]+)*)$/i;
-            return re.test(email);
-          }
+function showError(field, message) {
+  const fieldElement = document.getElementById(field);
+  const errorMessage = document.createElement('div');
+  errorMessage.classList.add('text-danger', 'mt-2');
+  errorMessage.textContent = message;
+  fieldElement.parentElement.insertBefore(errorMessage, fieldElement.nextSibling);
+}
