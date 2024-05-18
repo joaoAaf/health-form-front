@@ -28,8 +28,8 @@ async function login() {
       throw new Error(`Falha ao fazer login: ${responseJson.msg}`);
     }
 
-    console.log(responseJson.msg);
     sessionStorage.setItem("token", responseJson.data);
+    window.location.href = "/html/imcDiet.html";
 
   } catch (error) {
     console.error(error);
