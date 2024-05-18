@@ -35,7 +35,7 @@ nav {
   background: linear-gradient(to right, #e6e6e6, #d9d9d9);
 }
 body {
-  background-image: url('Frontend/src/assets/img/background.jpg');
+  background-image: url('/assets/img/background.jpg');
   background-size: auto;
   background-position: center;
 }
