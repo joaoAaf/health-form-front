@@ -1,0 +1,58 @@
+body {
+  background: linear-gradient(to right, #f2f2f2, #e6e6e6);
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 5px;
+  /* box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); */
+}
+
+.login-form h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #ccc;
+}
+
+.toggle-password i {
+  transition: all 0.3s ease-in-out;
+}
+
+.toggle-password:hover i {
+  color: #4CAF50;
+}
+nav {
+  background: linear-gradient(to right, #e6e6e6, #d9d9d9);
+}
+body {
+  background-image: url('Frontend/src/assets/img/background.jpg');
+  background-size: auto;
+  background-position: center;
+}
+
+body {
+  font-size: 16px; /* Base font size */
+}
+
+.card-body p {
+  font-size: 1em; /* Relative font size (100% of parent) */
+}
+
+
+@media (min-width: 768px) { /* Target screens wider than 768px (desktops) */
+  .card {
+    margin-left: 20px; /* Add horizontal margin for spacing */
+    margin-right: 20px; /* Add horizontal margin for spacing */
+  }
+}
+
