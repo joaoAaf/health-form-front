@@ -110,6 +110,7 @@ async function deleteUser() {
       throw new Error(`Falha ao deletar usuário: ${responseJson.msg}`);
     }
 
+    sessionStorage.removeItem('token');
     alert("Usuário deletado com sucesso!");
     location.href = "/index.html";
 
