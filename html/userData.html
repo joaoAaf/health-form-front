@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dados do usuário</title>
+  <title>Health Form</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body onload="getUser()">
   <nav class="navbar navbar-expand-sm navbar-light bg-light">
-    <a class="navbar-brand" href="#">Calculadora de IMC e Dieta Padrão</a>
+    <h1 class="navbar-brand">Health Form</h1>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -32,7 +32,7 @@
 
   <div class="container">
     <div class="edit-form">
-      <h1>Edição de dados cadastrais</h1>
+      <h2 class="text-center">Meus Dados</h2>
       <form id="editForm" method="post">
         <div class="form-group">
           <label for="name" class="form-label">Nome completo:</label>
@@ -53,6 +53,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Salvar</button>
         <a href="/html/imcDiet.html" class="btn btn-secondary">Cancelar</a>
+        <button style="float: right" type="button" class="btn btn-danger" onclick="confirmDelete()">Excluir conta</button>
       </form>
     </div>
   </div>
