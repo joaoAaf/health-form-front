@@ -43,8 +43,8 @@ async function register(name, email, password) {
       throw new Error(`Falha ao realizar o cadastro: ${responseJson.msg}`);
     }
 
-    console.log(responseJson.data);
     alert("Cadastro realizado com sucesso!");
+    location.href="/index.html";
 
   } catch (error) {
     console.error(error);

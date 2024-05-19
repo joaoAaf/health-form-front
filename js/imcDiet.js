@@ -43,5 +43,6 @@ async function imcDiet() {
   } catch (error) {
     console.error(error);
     alert(error);
+    location.href = "/index.html";
   }
 }

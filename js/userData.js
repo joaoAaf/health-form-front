@@ -51,12 +51,13 @@ async function update(name, email, password) {
       throw new Error(`Falha ao atualizar usuário: ${responseJson.msg}`);
     }
 
-    console.log(responseJson.data);
     alert("Usuário atualizado com sucesso!");
+    location.reload();
 
   } catch (error) {
     console.error(error);
     alert(error);
+    location.reload();
   }
 }
 
@@ -83,6 +84,39 @@ async function getUser() {
   } catch (error) {
     console.error(error);
     alert(error);
+    location.href = "/index.html";
+  }
+}
+
+function confirmDelete() {
+  if (confirm("Tem certeza que deseja deletar sua conta?")) {
+    deleteUser();
+  }
+}
+
+async function deleteUser() {
+
+  try {
+    const response = await fetch(userUrl, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': sessionStorage.getItem('token')
+      },
+    });
+
+    if (!response.ok) {
+      const responseJson = await response.json();
+      throw new Error(`Falha ao deletar usuário: ${responseJson.msg}`);
+    }
+
+    alert("Usuário deletado com sucesso!");
+    location.href = "/index.html";
+
+  } catch (error) {
+    console.error(error);
+    alert(error);
+    location.href = "/index.html";
   }
 }
 
