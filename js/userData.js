@@ -22,13 +22,13 @@ editForm.addEventListener('submit', function (event) {
     showError('confirm_password', 'As senhas não conferem!');
     return;
   }
-  
+
   update(name, email, password)
 
 });
 
 async function update(name, email, password) {
-  
+
   const updaterData = {
     "name": name,
     "email": email,
@@ -38,21 +38,47 @@ async function update(name, email, password) {
   try {
     const response = await fetch(userUrl, {
       method: 'PUT',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'Authorization': sessionStorage.getItem('token')
-        },
+      },
       body: JSON.stringify(updaterData),
     });
 
     const responseJson = await response.json();
 
     if (!response.ok) {
-      throw new Error(`Falha ao realizar o cadastro: ${responseJson.msg}`);
+      throw new Error(`Falha ao atualizar usuário: ${responseJson.msg}`);
     }
 
     console.log(responseJson.data);
     alert("Usuário atualizado com sucesso!");
+
+  } catch (error) {
+    console.error(error);
+    alert(error);
+  }
+}
+
+async function getUser() {
+
+  try {
+    const response = await fetch(userUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': sessionStorage.getItem('token')
+      },
+    });
+
+    const responseJson = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`Falha ao obter usuário: ${responseJson.msg}`);
+    }
+
+    document.getElementById('name').value = responseJson.data.name;
+    document.getElementById('email').value = responseJson.data.email;
 
   } catch (error) {
     console.error(error);
